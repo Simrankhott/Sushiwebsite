@@ -1,5 +1,41 @@
 
+// --- Lenis Smooth Scroller Integration ---
+import Lenis from 'https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.38/bundled/lenis.min.js';
+
+const lenis = new Lenis({
+  duration: 1.2,
+  smooth: true,
+  direction: 'vertical',
+  gestureDirection: 'vertical',
+  smoothTouch: false,
+  touchMultiplier: 2,
+  wheelMultiplier: 1,
+  normalizeWheel: true,
+  infinite: false,
+});
+
+// RAF for Lenis and GSAP ScrollTrigger sync
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+// Sync ScrollTrigger with Lenis
+lenis.on('scroll', ScrollTrigger.update);
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.scrollerProxy(document.body, {
+  scrollTop(value) {
+    return arguments.length ? lenis.scrollTo(value) : window.scrollY;
+  },
+  getBoundingClientRect() {
+    return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+  },
+  // pinType is fixed for body scrolling
+  pinType: document.body.style.transform ? "transform" : "fixed"
+});
+
+// --- GSAP Animations ---
 
 // Advanced GSAP Timeline for Navigation Bar
 const navTimeline = gsap.timeline();
@@ -62,6 +98,7 @@ gsap.from(".gsap-newsletter-title", {
     trigger: ".gsap-newsletter-title",
     start: "top 85%",
     scrub: 1,
+    scroller: document.body
   },
   y: 60,
   opacity: 0,
@@ -75,6 +112,7 @@ gsap.from(".gsap-newsletter-subtitle", {
     trigger: ".gsap-newsletter-subtitle",
     start: "top 90%",
     scrub: 1,
+    scroller: document.body
   },
   y: 40,
   opacity: 0,
@@ -89,6 +127,7 @@ gsap.from(".gsap-newsletter-form input, .gsap-newsletter-form button", {
     trigger: ".gsap-newsletter-form",
     start: "top 95%",
     scrub: 1,
+    scroller: document.body
   },
   y: 30,
   opacity: 0,
@@ -105,6 +144,7 @@ gsap.from(".gsap-footer", {
     trigger: ".gsap-footer",
     start: "top 98%",
     scrub: 1,
+    scroller: document.body
   },
   y: 60,
   opacity: 0,
@@ -117,6 +157,7 @@ gsap.from(".gsap-footer > div, .gsap-footer > ul, .gsap-footer > .flex", {
     trigger: ".gsap-footer",
     start: "top 99%",
     scrub: 1,
+    scroller: document.body
   },
   y: 40,
   opacity: 0,
@@ -132,6 +173,7 @@ gsap.from(".gsap-footer ul li", {
     trigger: ".gsap-footer",
     start: "top 99%",
     scrub: 1,
+    scroller: document.body
   },
   y: 20,
   opacity: 0,
@@ -146,6 +188,7 @@ gsap.from(".gsap-footer .flex a", {
     trigger: ".gsap-footer",
     start: "top 99%",
     scrub: 1,
+    scroller: document.body
   },
   y: 20,
   opacity: 0,
@@ -164,6 +207,7 @@ document.querySelectorAll("section").forEach((section, i) => {
       trigger: section,
       start: "top 90%",
       scrub: 1,
+      scroller: document.body
     },
     y: 60,
     opacity: 0,
@@ -185,6 +229,7 @@ document.querySelectorAll("img").forEach((img, i) => {
         trigger: img,
         start: "top 95%",
         toggleActions: "play none none reverse",
+        scroller: document.body
       },
       scale: 1,
       opacity: 1,
@@ -204,6 +249,7 @@ document.querySelectorAll("button").forEach((btn, i) => {
       trigger: btn,
       start: "top 98%",
       toggleActions: "play none none reverse",
+      scroller: document.body
     },
     scale: 0.7,
     opacity: 0,
@@ -221,6 +267,7 @@ document.querySelectorAll("a").forEach((a, i) => {
       trigger: a,
       start: "top 99%",
       toggleActions: "play none none reverse",
+      scroller: document.body
     },
     opacity: 0,
     y: 10,
@@ -242,6 +289,7 @@ document.querySelectorAll("a").forEach((a, i) => {
           trigger: el,
           start: "top 95%",
           toggleActions: "play none none reverse",
+          scroller: document.body
         },
         y: 30,
         opacity: 0,
