@@ -51,9 +51,11 @@
   </head>
 
   <body class="bg-creamson font-body">
-    <!-- Advanced Glassy Navbar -->
+    <!-- Navbar -->
     <header>
-      <nav class="w-full fixed top-0 left-0 z-20 bg-glass backdrop-blur-md shadow-glass px-8 py-4 flex justify-between items-center transition-all duration-300">
+      <nav class="w-full fixed top-0 left-0 z-20 flex justify-between items-center transition-all duration-300 px-6 py-4
+        bg-white shadow-glass md:bg-glass md:backdrop-blur-md md:px-8"
+      >
         <div class="flex items-center gap-3">
           <img src="assets/sushi-1.png" alt="Logo" class="w-10 h-10 rounded-full shadow-lg border-2 border-primary" />
           <h1 class="text-2xl font-display font-extrabold text-primary tracking-widest drop-shadow">SUSHIMAN</h1>
@@ -64,30 +66,124 @@
           <li><a href="#" class="hover:text-primary transition">SERVICES</a></li>
           <li><a href="#" class="hover:text-primary transition">ABOUT US</a></li>
         </ul>
-        <!-- Mobile Hamburger -->
+        <!-- Mobile Hamburger (also acts as close button when open) -->
         <div class="md:hidden flex items-center">
-          <button id="mobile-menu-btn" class="focus:outline-none">
-            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
+          <button id="mobile-menu-btn" class="focus:outline-none relative w-8 h-8 group" aria-label="Open menu">
+            <span class="block absolute left-1 top-2 w-6 h-0.5 bg-black rounded transition-all duration-300 ease-in-out origin-center group-[.open]:rotate-45 group-[.open]:top-4" id="bar1"></span>
+            <span class="block absolute left-1 top-4 w-6 h-0.5 bg-black rounded transition-all duration-300 ease-in-out group-[.open]:opacity-0" id="bar2"></span>
+            <span class="block absolute left-1 top-6 w-6 h-0.5 bg-black rounded transition-all duration-300 ease-in-out origin-center group-[.open]:-rotate-45 group-[.open]:top-4" id="bar3"></span>
           </button>
-        </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 transform translate-x-full transition-transform duration-300 flex flex-col gap-8 p-8 md:hidden">
-          <button id="close-mobile-menu" class="self-end mb-4">
-            <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-            </svg>
-          </button>
-          <a href="#" class="text-lg font-bold text-primary hover:text-black transition">MENU</a>
-          <a href="#" class="text-lg font-bold text-primary hover:text-black transition">FOOD</a>
-          <a href="#" class="text-lg font-bold text-primary hover:text-black transition">SERVICES</a>
-          <a href="#" class="text-lg font-bold text-primary hover:text-black transition">ABOUT US</a>
         </div>
       </nav>
+      <!-- Mobile Menu (Solid, Clean, Accessible) -->
+      <div
+        id="mobile-menu"
+        class="fixed top-0 right-0 w-72 max-w-full h-full bg-[#e5dabbe1] text-primary shadow-2xl z-50 transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col gap-10 p-8 md:hidden border-l-4 border-primary"
+        aria-modal="true"
+        role="dialog"
+        tabindex="-1"
+      >
+        <!-- Visible Close Button for Mobile Menu -->
+        <button id="mobile-menu-close" class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary/10 transition focus:outline-none z-50" aria-label="Close menu">
+          <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <line x1="6" y1="6" x2="18" y2="18" stroke-linecap="round"/>
+            <line x1="6" y1="18" x2="18" y2="6" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <!-- 📱 Navigation Links -->
+        <nav class="flex flex-col gap-6 mt-2" aria-label="Mobile Navigation">
+          <a href="#" class="text-lg font-bold tracking-wide text-primary hover:bg-primary/10 px-4 py-2 rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+            MENU
+          </a>
+          <a href="#" class="text-lg font-bold tracking-wide text-primary hover:bg-primary/10 px-4 py-2 rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+            FOOD
+          </a>
+          <a href="#" class="text-lg font-bold tracking-wide text-primary hover:bg-primary/10 px-4 py-2 rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+            SERVICES
+          </a>
+          <a href="#" class="text-lg font-bold tracking-wide text-primary hover:bg-primary/10 px-4 py-2 rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+            ABOUT US
+          </a>
+        </nav>
+        <!-- 📞 Contact Info -->
+        <div class="mt-auto flex flex-col gap-4 text-sm text-primary font-semibold">
+          <a href="tel:+1234567890" class="flex items-center gap-2 hover:text-accent transition">
+            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M22 16.92V21a2 2 0 0 1-2.18 2A19.72 19.72 0 0 1 3 5.18 2 2 0 0 1 5 3h4.09a1 1 0 0 1 1 .75l1.13 4.52a1 1 0 0 1-.29 1L9.91 11.09a16 16 0 0 0 6 6l1.82-1.82a1 1 0 0 1 1-.29l4.52 1.13a1 1 0 0 1 .75 1z"/>
+            </svg>
+            +1 234 567 890
+          </a>
+          <a href="mailto:info@sushiman.com" class="flex items-center gap-2 hover:text-accent transition">
+            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M4 4h16v16H4z"/><polyline points="22,6 12,13 2,6"/>
+            </svg>
+            info@sushiman.com
+          </a>
+        </div>
+      </div>
+      <script>
+        // Navbar logic: Hamburger/X animation and mobile menu open/close
+        document.addEventListener('DOMContentLoaded', function () {
+          const menuBtn = document.getElementById('mobile-menu-btn');
+          const mobileMenu = document.getElementById('mobile-menu');
+          const closeBtn = document.getElementById('mobile-menu-close');
+
+          function toggleMenuIcon(open) {
+            if (open) {
+              menuBtn.classList.add('open');
+            } else {
+              menuBtn.classList.remove('open');
+            }
+          }
+
+          function openMenu() {
+            mobileMenu.classList.remove('translate-x-full');
+            mobileMenu.classList.add('translate-x-0');
+            toggleMenuIcon(true);
+            setTimeout(() => {
+              document.addEventListener('mousedown', handleClickOutside);
+            }, 10);
+          }
+
+          function closeMenu() {
+            mobileMenu.classList.add('translate-x-full');
+            mobileMenu.classList.remove('translate-x-0');
+            toggleMenuIcon(false);
+            document.removeEventListener('mousedown', handleClickOutside);
+          }
+
+          function handleClickOutside(e) {
+            if (
+              !mobileMenu.contains(e.target) &&
+              !menuBtn.contains(e.target)
+            ) {
+              closeMenu();
+            }
+          }
+
+          if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', function (e) {
+              e.stopPropagation();
+              if (mobileMenu.classList.contains('translate-x-full')) {
+                openMenu();
+              } else {
+                closeMenu();
+              }
+            });
+          }
+
+          // Add close button logic for mobile menu
+          if (closeBtn) {
+            closeBtn.addEventListener('click', function (e) {
+              e.stopPropagation();
+              closeMenu();
+            });
+          }
+        });
+      </script>
     </header>
 
-    <main class="pt-24 md:pt-28">
+    <main class="pt-20 md:pt-28">
       <!-- Hero Section -->
       <section class="w-full min-h-screen flex flex-col md:flex-row relative bg-hero-pattern bg-cover bg-center overflow-hidden">
         <!-- Left: Sushi Visual & Japanese Text -->
@@ -100,22 +196,28 @@
           <!-- Decorative Accent -->
           <div class="absolute top-8 right-8 w-24 h-24 bg-accent/30 rounded-full blur-2xl z-0"></div>
         </div>
-        <!-- Right: Headline, CTA, Social Proof -->
-        <div class="w-full md:w-1/2 h-auto bg-creamson flex flex-col justify-center items-start px-8 md:px-20 py-12 gap-8 relative z-10">
-          <h2 class="text-4xl md:text-5xl font-display font-extrabold text-primary leading-tight drop-shadow-lg">
+        <!-- Right: Headline, Discover, CTA, Social Proof -->
+        <div class="w-full md:w-1/2 h-auto bg-creamson flex flex-col justify-center items-start px-6 sm:px-8 md:px-20 py-10 sm:py-12 gap-8 relative z-10">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-primary leading-tight drop-shadow-lg">
             Experience the <span class="text-accent">Art</span> of Japanese Cuisine
           </h2>
-          <p class="text-gray-700 text-lg leading-relaxed max-w-xl">
-            Discover authentic Japanese flavors, crafted with passion and tradition. Enjoy a culinary journey with our signature sushi, ramen, and more, delivered fresh to your door.
-          </p>
-          <div class="flex gap-4 mt-2">
-            <button class="bg-primary hover:bg-accent text-white font-bold rounded-full px-8 py-4 shadow-lg transition-all duration-200 text-lg flex items-center gap-2 group">
+          <!-- Discover block centered and responsive -->
+          <div class="w-full flex justify-center">
+            <div class="bg-accent/10 border border-accent/30 rounded-xl px-6 py-4 flex flex-col items-center w-full max-w-md">
+              <span class="text-accent text-lg sm:text-xl font-semibold tracking-wide uppercase mb-1">Discover</span>
+              <p class="text-gray-700 text-base sm:text-lg leading-relaxed text-center">
+                Authentic Japanese flavors, crafted with passion and tradition. Enjoy a culinary journey with our signature sushi, ramen, and more, delivered fresh to your door.
+              </p>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-4 mt-2 w-full">
+            <button class="bg-primary hover:bg-accent text-white font-bold rounded-full px-8 py-4 shadow-lg transition-all duration-200 text-lg flex items-center gap-2 group w-full sm:w-auto justify-center">
               <span>ORDER NOW</span>
               <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
             </button>
-            <button class="bg-white border-2 border-primary text-primary font-bold rounded-full px-8 py-4 shadow hover:bg-primary hover:text-white transition-all duration-200 text-lg flex items-center gap-2">
+            <button class="bg-white border-2 border-primary text-primary font-bold rounded-full px-8 py-4 shadow hover:bg-primary hover:text-white transition-all duration-200 text-lg flex items-center gap-2 w-full sm:w-auto justify-center">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
               </svg>
@@ -123,9 +225,9 @@
             </button>
           </div>
           <!-- Social Proof Card -->
-          <div class="mt-16 w-full max-w-lg bg-white/80 backdrop-blur-md rounded-2xl shadow-card flex flex-col md:flex-row justify-between items-center py-6 px-8 gap-6 border border-primary/10">
+          <div class="mt-10 sm:mt-16 w-full max-w-lg bg-white/80 backdrop-blur-md rounded-2xl shadow-card flex flex-col md:flex-row justify-between items-center py-6 px-6 sm:px-8 gap-6 border border-primary/10">
             <div class="flex flex-col items-center md:items-start">
-              <p class="text-black font-bold text-xl md:text-2xl flex items-center gap-2">
+              <p class="text-black font-bold text-lg sm:text-xl md:text-2xl flex items-center gap-2">
                 <svg class="w-6 h-6 text-accent" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.18c.969 0 1.371 1.24.588 1.81l-3.388 2.46a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.388-2.46a1 1 0 00-1.175 0l-3.388 2.46c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.045 9.394c-.783-.57-.38-1.81.588-1.81h4.18a1 1 0 00.95-.69l1.286-3.967z"/></svg>
                 24k+ Happy Customers
               </p>
@@ -278,9 +380,9 @@
               <div class="absolute bottom-4 right-8 w-16 h-16 bg-accent/40 rounded-full blur-2xl z-0"></div>
             </div>
           </div>
-          <!-- Discover Button - Centered in the middle of the 4 layout, responsive -->
-          <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 flex justify-center items-center w-full pointer-events-none">
-            <div class="w-32 sm:w-36 aspect-square bg-dark hover:bg-primary rounded-full flex justify-center items-center shadow-lg cursor-pointer transition-all duration-200 group pointer-events-auto">
+          <!-- Discover Button -->
+          <div class="absolute  left-1/2 top-[45%] transform -translate-x-1/2 -translate-y-1/2 z-30 flex justify-center items-center w-full pointer-events-none">
+            <div class="w-40 sm:w-36 aspect-square bg-dark hover:bg-primary rounded-full flex justify-center items-center shadow-lg cursor-pointer transition-all duration-200 group pointer-events-auto">
               <h1 class="text-white font-bold text-lg tracking-widest group-hover:scale-110 transition-transform">DISCOVER</h1>
             </div>
           </div>
@@ -370,27 +472,41 @@
 
       <!-- Footer Section -->
       <section>
-        <footer class="w-full bg-gradient-to-r from-primary via-accent/20 to-creamson flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-10 gap-8 gsap-footer shadow-inner">
-          <div class="flex items-center gap-3">
-            <img src="assets/sushi-1.png" alt="Logo" class="w-10 h-10 rounded-full border-2 border-accent shadow" />
-            <span class="text-3xl md:text-4xl font-display font-extrabold text-primary tracking-widest">SUSHI<span class="text-black">MAN</span></span>
+        <footer class="w-full bg-creamson relative flex flex-col md:flex-row items-center justify-between px-6 md:px-20 py-10 gap-8 gsap-footer shadow-2xl overflow-hidden">
+          <!-- Decorative Sushi Images -->
+          <img src="assets/sushi-2.png" alt="Decorative Sushi" class="hidden md:block absolute left-0 bottom-0 w-24 md:w-32 opacity-70 animate-float pointer-events-none z-0" />
+          <img src="assets/sushi-3.png" alt="Decorative Sushi" class="hidden md:block absolute right-0 top-0 w-20 md:w-28 opacity-60 animate-float pointer-events-none z-0"  />
+          <!-- Logo & Tagline -->
+          <div class="flex flex-col items-center md:items-start gap-2 z-10">
+            <div class="flex items-center gap-3">
+              <img src="assets/sushi-1.png" alt="Logo" class="w-12 h-12 rounded-full border-2 border-accent shadow-lg bg-white/80" />
+              <span class="text-4xl md:text-5xl font-display font-extrabold text-primary tracking-widest drop-shadow-lg">SUSHI<span class="text-black">MAN</span></span>
+            </div>
+            <span class="text-black  text-sm md:text-base font-medium italic mt-1">Fresh. Fast. Fantastic.</span>
           </div>
-          <ul class="flex flex-wrap justify-center gap-6 text-black text-base font-semibold">
-            <li><a href="#" class="hover:text-primary transition">MENU</a></li>
-            <li><a href="#" class="hover:text-primary transition">FOOD</a></li>
-            <li><a href="#" class="hover:text-primary transition">SERVICES</a></li>
-            <li><a href="#" class="hover:text-primary transition">ABOUT US</a></li>
-          </ul>
-          <div class="flex items-center gap-4">
-            <a href="#" class="bg-dark rounded-full p-3 flex justify-center items-center hover:bg-primary transition shadow">
-              <img class="w-5 h-5 object-cover" src="assets/facebook.svg" alt="Facebook">
-            </a>
-            <a href="#" class="rounded-full bg-dark p-3 items-center justify-center flex hover:bg-primary transition shadow">
-              <img class="w-5 h-5 object-cover" src="assets/instagram.svg" alt="Instagram">
-            </a>
-            <a href="#" class="rounded-full bg-dark p-3 items-center justify-center flex hover:bg-primary transition shadow">
-              <img class="w-5 h-5 object-cover" src="assets/twitter.svg" alt="Twitter">
-            </a>
+          <!-- Social & Contact -->
+          <div class="flex flex-col items-center md:items-end gap-3 z-10">
+            <div class="flex items-center gap-4">
+              <a href="#" class="bg-dark rounded-full p-3 flex justify-center items-center hover:bg-primary transition shadow-lg hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent">
+                <img class="w-5 h-5 object-cover" src="assets/facebook.svg" alt="Facebook">
+              </a>
+              <a href="#" class="rounded-full bg-dark p-3 items-center justify-center flex hover:bg-primary transition shadow-lg hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent">
+                <img class="w-5 h-5 object-cover" src="assets/instagram.svg" alt="Instagram">
+              </a>
+              <a href="#" class="rounded-full bg-dark p-3 items-center justify-center flex hover:bg-primary transition shadow-lg hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent">
+                <img class="w-5 h-5 object-cover" src="assets/twitter.svg" alt="Twitter">
+              </a>
+            </div>
+            <div class="flex items-center gap-2 mt-1">
+              <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16 12a4 4 0 01-8 0m8 0V8a4 4 0 00-8 0v4m8 0v4a4 4 0 01-8 0v-4"></path>
+              </svg>
+              <span class="text-black/70 text-xs md:text-sm font-medium">support@sushiman.com</span>
+            </div>
+          </div>
+          <!-- Animated Gradient Overlay (no blur) -->
+          <div class="absolute inset-0 pointer-events-none z-0">
+            <div class="w-full h-full bg-gradient-to-tr from-white/10 via-accent/10 to-transparent animate-pulse"></div>
           </div>
         </footer>
         <div class="w-full text-center text-gray-500 text-xs py-2 bg-white/80">
@@ -400,18 +516,6 @@
     </main>
     <script src="script.js"></script>
     <script>
-      // Mobile menu toggle
-      const menuBtn = document.getElementById('mobile-menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const closeMenu = document.getElementById('close-mobile-menu');
-      if(menuBtn && mobileMenu && closeMenu) {
-        menuBtn.addEventListener('click', () => {
-          mobileMenu.classList.remove('translate-x-full');
-        });
-        closeMenu.addEventListener('click', () => {
-          mobileMenu.classList.add('translate-x-full');
-        });
-      }
       // Floating sushi animation
       document.querySelectorAll('.animate-float').forEach(el => {
         el.animate([
